@@ -27,7 +27,9 @@ class html{
                 print_r($values);
             }
             else{
-                
+                $array = $record -> returnArray();
+                $values = array_values($array);
+                print_r($values);
             }
             $count++;
             //print_r($record);
