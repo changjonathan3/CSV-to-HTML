@@ -28,8 +28,12 @@ class csv{
 }
 
 class record{
-    public function __construct($record){
-        print_r($record);
+    public function __construct(Array $record = null){
+        $this ->createProperty();
+        print_r($this);
+    }
+    public function createProperty($name = 'first', $value = 'Adam'){
+        $this ->{$name} = $value;
     }
 }
 
