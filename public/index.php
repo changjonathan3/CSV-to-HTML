@@ -33,7 +33,10 @@ class html{
                 $html .= '<tr>';
                 $array = $record -> returnArray();
                 $fields = array_keys($array);
+                //print_r($fields);
                 $values = array_values($array);
+                //print_r($values);
+                //print_r($values);
                 //print_r($fields);
                 //print_r($values);
                 foreach($fields as $header){
@@ -42,16 +45,22 @@ class html{
                 $html .='</thead>';
                 $html .='</tr>';
                 $html .='<tbody>';
+                $html .= '<tr>';
+                //print_r($values);
+                foreach($values as $data){
+                    $html .= '<td>' . htmlspecialchars($data) . '</td>';
+                }
+                $html .= '</tr>';
             }
             else{
                 $array = $record -> returnArray();
                 $values = array_values($array);
                 $html .= '<tr>';
+                //print_r($values);
                 foreach($values as $data){
                     $html .= '<td>' . htmlspecialchars($data) . '</td>';
                 }
                 $html .= '</tr>';
-
             }
             $count++;
             //print_r($record);
