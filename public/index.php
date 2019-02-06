@@ -37,11 +37,13 @@ class csv{
 
 class record{
     public function __construct(Array $header = null, $values = null){
-        
-        $c=array_combine($header,$values);
-        print_r($c);
 
-        $this ->createProperty();
+        $c=array_combine($header,$values);
+        foreach($c as $key => $value){
+            $this ->createProperty($key, $value);
+        }
+        print_r($this);
+
     }
     public function createProperty($name = 'first', $value = 'Adam'){
         $this ->{$name} = $value;
