@@ -9,6 +9,13 @@ main::start('example.csv');
 class main {
     public static function start($file){
         $allRecords = csv::getRecords($file);
+        $table = html::mkTable($allRecords);
+
+    }
+}
+
+class html{
+    public static function mkTable($allRecords){
         foreach($allRecords as $record){
             //print_r($record);
             $array = $record -> returnArray();
