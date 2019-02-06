@@ -36,9 +36,10 @@ class csv{
 }
 
 class record{
-    public function __construct(Array $record = null){
+    public function __construct(Array $header = null, $values = null){
+        print_r($header);
+        print_r($values);
         $this ->createProperty();
-        print_r($record);
     }
     public function createProperty($name = 'first', $value = 'Adam'){
         $this ->{$name} = $value;
@@ -46,10 +47,9 @@ class record{
 }
 
 class recordFactory{
-    public static function create(Array $header = null, $record = null){
-        print_r($header);
-        print_r($record);
-        //$record = new record($array);
+    public static function create(Array $header = null, $values = null){
+
+        $record = new record($header, $values);
         return $record;
     }
 }
