@@ -9,8 +9,7 @@ main::start('example.csv');
 class main {
     static public function start($file){
         $allRecords = csv::getRecords($file);
-        $record = recordFactory::create();
-        print_r($record);
+        print_r($allRecords);
     }
 }
 
@@ -21,7 +20,7 @@ class csv{
         while(! feof($file))
         {
             $record = fgetcsv($file);
-            $allRecords [] = $record;
+            $allRecords [] = recordFactory::create();
         }
 
         fclose($file);
