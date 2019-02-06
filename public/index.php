@@ -17,7 +17,6 @@ class main {
     }
 }
 
-
 class csv{
     public static function getRecords($file){
         $file = fopen($file,"r");
