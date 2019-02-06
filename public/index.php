@@ -19,7 +19,8 @@ class html{
         foreach($allRecords as $record){
             //print_r($record);
             $array = $record -> returnArray();
-            print_r($array);
+            $keys = array_keys($array);
+            print_r($keys);
         }
     }
 }
