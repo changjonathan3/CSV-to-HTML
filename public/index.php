@@ -7,13 +7,19 @@
  */
 main::start('example.csv');
 class main {
-    static public function start($file){
+    public static function start($file){
         $allRecords = csv::getRecords($file);
+        foreach($allRecords as $record){
+            //print_r($record);
+            $array = $record -> returnArray();
+            print_r($array);
+        }
     }
 }
 
+
 class csv{
-    static public function getRecords($file){
+    public static function getRecords($file){
         $file = fopen($file,"r");
         $header = array();
         $count = 0;
@@ -42,8 +48,13 @@ class record{
         foreach($c as $key => $value){
             $this ->createProperty($key, $value);
         }
-        print_r($this);
+        //print_r($this);
 
+    }
+
+    public function returnArray(){
+        $array = (array) $this;
+        return $array;
     }
     public function createProperty($name = 'first', $value = 'Adam'){
         $this ->{$name} = $value;
