@@ -16,11 +16,22 @@ class main {
 
 class html{
     public static function makeTable($allRecords){
+        $count = 0;
+
         foreach($allRecords as $record){
+            if ($count == 0){
+                $array = $record -> returnArray();
+                $fields = array_keys($array);
+                $values = array_values($array);
+                print_r($fields);
+                print_r($values);
+            }
+            else{
+                
+            }
+            $count++;
             //print_r($record);
-            $array = $record -> returnArray();
-            $keys = array_keys($array);
-            print_r($keys);
+
         }
     }
 }
