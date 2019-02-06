@@ -10,31 +10,56 @@ class main {
     public static function start($file){
         $allRecords = csv::getRecords($file);
         $table = html::makeTable($allRecords);
-
+        system::printTable($table);
     }
 }
+
+class system{
+    public static function printTable($table){
+        echo $table;
+    }
+}
+
 
 class html{
     public static function makeTable($allRecords){
         $count = 0;
+        // start table
+        $html = '<table class="table table-striped">';
 
         foreach($allRecords as $record){
             if ($count == 0){
+                $html .= '<thead>';
+                $html .= '<tr>';
                 $array = $record -> returnArray();
                 $fields = array_keys($array);
                 $values = array_values($array);
-                print_r($fields);
-                print_r($values);
+                //print_r($fields);
+                //print_r($values);
+                foreach($fields as $header){
+                    $html .= '<th scope="col">' . htmlspecialchars($header) . '</th>';
+                }
+                $html .='</thead>';
+                $html .='</tr>';
+                $html .='<tbody>';
             }
             else{
                 $array = $record -> returnArray();
                 $values = array_values($array);
-                print_r($values);
+                $html .= '<tr>';
+                foreach($values as $data){
+                    $html .= '<td>' . htmlspecialchars($data) . '</td>';
+                }
+                $html .= '</tr>';
+
             }
             $count++;
             //print_r($record);
 
         }
+        $html .='</tbody>';
+        $html .='</table>';
+        return $html;
     }
 }
 
