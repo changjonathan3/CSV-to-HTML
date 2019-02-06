@@ -7,45 +7,18 @@
  */
 main::start();
 class main {
-    static public function start($fileName){
-        $records = csv::getRecords($fileName);
-        print_r($records);
-    }
-}
+    static public function start(){
+        $file = fopen("example.csv","r");
 
-class csv{
-    static public function getRecords($fileName){
-        $file = fopen($fileName, "r");
-        while(! feof($file)){
-            $record = fgetcsv($file);
-            $records [] = recordFactory::create($record);
+        while(! feof($file))
+        {
+            print_r(fgetcsv($file));
         }
+
         fclose($file);
-        return $records;
-
     }
 }
 
-class html{
 
-}
 
-class system{
 
-}
-
-class record
-{
-    public function __construct(Array $record = null){
-        print_r($record);
-}
-}
-
-class recordFactory
-{
-    public static function create(Array $array = null)
-    {
-        $record = new record($array);
-        return $record;
-    }
-}
