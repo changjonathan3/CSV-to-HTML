@@ -37,8 +37,10 @@ class csv{
 
 class record{
     public function __construct(Array $header = null, $values = null){
-        print_r($header);
-        print_r($values);
+        
+        $c=array_combine($header,$values);
+        print_r($c);
+
         $this ->createProperty();
     }
     public function createProperty($name = 'first', $value = 'Adam'){
