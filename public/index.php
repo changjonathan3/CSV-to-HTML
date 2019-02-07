@@ -35,16 +35,16 @@ class html{
         $count = 0;
         // start table
         echo "<html lang=\"en\">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset=\\'utf - 8\\>
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">
-    <!-- Bootstrap CSS -->
-    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\" integrity=\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\" crossorigin=\"anonymous\">
-    <title>Jonathan Chang</title>
-  </head>
-  <table class=\"table table-striped\">
-    <thead>";
+                <head>
+                    <!-- Required meta tags -->
+                    <meta charset=\\'utf - 8\\>
+                    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">
+                    <!-- Bootstrap CSS -->
+                    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\" integrity=\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\" crossorigin=\"anonymous\">
+                    <title>Jonathan Chang</title>
+                </head>
+                <table class=\"table table-striped\">
+                <thead>";
 
         foreach($allRecords as $record){
             if ($count == 0){
@@ -53,9 +53,8 @@ class html{
                 //output the header rows
                 self::dataOut($fields, $style = 1);
 
-                echo "         
-    </thead>
-         <tbody>";
+                echo "</thead>
+                        <tbody>";
 
                 //output the first data row
                 $values = array_values($array);
@@ -69,10 +68,9 @@ class html{
             }
             $count++;
         }
-        echo
-        "</tbody>
-  </table>
-</html>";
+        echo "</tbody>
+                </table>
+                </html>";
         return ;
     }
 
