@@ -5,7 +5,9 @@
  * Date: 2/5/2019
  * Time: 10:24 PM
  */
+
 main::start('example.csv');
+
 class main {
     public static function start($file){
         $allRecords = csv::getRecords($file);
@@ -20,56 +22,75 @@ class system{
     }
 }
 
-
 class html{
     public static function makeTable($allRecords){
         $count = 0;
         // start table
-        $html = '<table class="table table-striped">';
+        //$html = '<table class="table table-striped">';
+        echo
+        "<html lang=\"en\">
+            <head>
+                <!-- Required meta tags -->
+                <meta charset=\"utf-8\">
+                <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">
+                <!-- Bootstrap CSS -->
+                <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\" integrity=\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\" crossorigin=\"anonymous\">
+                <title>Project 1</title>
+            </head>
+            <table class=\"table table-striped\">
+                <thead>
+                    <tr>";
 
         foreach($allRecords as $record){
             if ($count == 0){
-                $html .= '<thead>';
-                $html .= '<tr>';
+
                 $array = $record -> returnArray();
                 $fields = array_keys($array);
-                //print_r($fields);
                 $values = array_values($array);
-                //print_r($values);
-                //print_r($values);
-                //print_r($fields);
-                //print_r($values);
+
                 foreach($fields as $header){
-                    $html .= '<th scope="col">' . htmlspecialchars($header) . '</th>';
+                    echo '<th scope="col">' . htmlspecialchars($header) . '</th>';
                 }
-                $html .='</thead>';
-                $html .='</tr>';
-                $html .='<tbody>';
-                $html .= '<tr>';
-                //print_r($values);
+                echo
+                "</thead>
+                      </tr> 
+                        <tbody>";
+                //dataOut($values);
+                echo '<tr>';
                 foreach($values as $data){
-                    $html .= '<td>' . htmlspecialchars($data) . '</td>';
+                    echo '<td>' . htmlspecialchars($data) . '</td>';
                 }
-                $html .= '</tr>';
+                echo '</tr>';
             }
             else{
                 $array = $record -> returnArray();
                 $values = array_values($array);
-                $html .= '<tr>';
+                //$html .= '<tr>';
                 //print_r($values);
+                //dataOut($values);
+                echo '<tr>';
                 foreach($values as $data){
-                    $html .= '<td>' . htmlspecialchars($data) . '</td>';
+                    echo '<td>' . htmlspecialchars($data) . '</td>';
                 }
-                $html .= '</tr>';
+                echo '</tr>';
             }
             $count++;
             //print_r($record);
-
         }
-        $html .='</tbody>';
-        $html .='</table>';
-        return $html;
+        echo"</tbody>
+             </table>
+             </html>";
+        return ;
     }
+    /**
+    public static function dataOut(Array $array = null){
+        echo '<tr>';
+        foreach($array as $data){
+            echo '<td>' . htmlspecialchars($data) . '</td>';
+        }
+        echo '</tr>';
+    }
+     * */
 }
 
 class csv{
@@ -122,7 +143,4 @@ class recordFactory{
         return $record;
     }
 }
-
-
-
 
