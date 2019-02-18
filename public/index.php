@@ -1,3 +1,15 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Jonathan Chang</title>
+</head>
+
 <?php
 /**
  * Created by PhpStorm.
@@ -13,42 +25,13 @@ class main {
     public static function start($file){
         $allRecords = csv::getRecords($file);
         $table = html::makeTable($allRecords);
-        table::returnTable($table);
+        echo $table;
     }
 }
 
 class table{
     public static function returnTable($table) {
-        echo '<html lang="en">';
-        echo '<head>
-                    <!-- Required meta tags -->
-                    <meta charset=\\\'utf - 8\\>
-                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-                    <!-- Bootstrap CSS -->
-                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-                    <title>Jonathan Chang</title>
-                </head>';
-        echo '<table class="table table-striped">' . htmlspecialchars($table). '</tbody> </table>';
-        echo '</html>';
-    }
-
-    public static function returnTableHeader(Array $array = null){
-        echo '<thead>';
-        echo '<tr>';
-        foreach($array as $data){
-            echo '<th>' . htmlspecialchars($data) . '</th>';
-        }
-        echo '</tr>';
-        echo '</thead>';
-        echo '<tbody>';
-    }
-
-    public static function returnTableData(Array $array = null){
-        echo '<tr>';
-        foreach($array as $data){
-            echo '<td>' . htmlspecialchars($data) . '</td>';
-        }
-        echo '</tr>';
+        return '<table class="table table-striped">' . self::returnTHead($table) . '</table>';
     }
 }
 
@@ -60,31 +43,52 @@ class html{
     public static function makeTable($allRecords){
         $count = 0;
         // start table
+        echo "<table class=\"table table-striped\">";
         foreach($allRecords as $record){
             if ($count == 0){
                 $array = $record -> returnArray();
                 $fields = array_keys($array);
                 //output the header rows
-                self::returnTableHeader($fields);
+                //print_r($fields);
+                self::returnHeader($fields);
 
                 //output the first data row
                 $values = array_values($array);
-                self::returnTableData($values);
+                //print_r($values);
+                echo "<tbody>";
+                self::returnData($values);
             }
             else{
                 $array = $record -> returnArray();
                 $values = array_values($array);
                 //output the other data rows
-                self::returnTableData($values);
+                //print_r($values);
+                self::returnData($values);
             }
             $count++;
         }
+        echo "</tbody>";
+        echo "</table>";
+    }
+    public static function returnHeader($th) {
+        echo "<thead><tr>";
+        foreach($th as $header){
+            echo '<th>' . $header. '</th>';
+        }
+        echo "</tr></thead>";
+    }
+    public static function returnData($td) {
+        echo "<tr>";
+        foreach($td as $data){
+            echo '<td>' . $data. '</td>';
+        }
+        echo "</tr>";
     }
 }
 
 class csv{
     /**
-     * @param $file The CSV input file to read
+     * @param $file  CSV input file to read
      * @return array The output array to be transformed
      */
     public static function getRecords($file){
@@ -157,4 +161,6 @@ class recordFactory{
         return $record;
     }
 }
+?>
 
+</html>
