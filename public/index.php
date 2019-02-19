@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,9 +25,7 @@ class main {
     public static function start($file){
         $allRecords = csv::getRecords($file);
         $table = html::makeTable($allRecords);
-        return $table;
-        //$print =  table::returnTable($table);
-        echo $print;
+        return table::returnTable($table);
     }
 }
 
@@ -50,58 +47,63 @@ class table {
 }
 
 class html{
-
     public static function makeTable($allRecords){
         $count = 0;
         // start table
-        echo "<table class=\"table table-striped\">";
-        //$table = "<thead>";
-        echo "<thead>";
+        //echo "<table class=\"table table-striped\">";
+        $table = "";
+        //echo "<thead>";
         foreach($allRecords as $record){
             if ($count == 0){
                 $array = $record -> returnArray();
                 $fields = array_keys($array);
-                self::returnHeader($fields);
-                //$table.="</tr></thead><tbody>";
-                echo "</tr></thead><tbody>";
+                $table .= self::returnHeader($fields);
+                $table.="</tr></thead><tbody>";
+                //echo "</tr></thead><tbody>";
+
                 //output the first data row
                 $values = array_values($array);
-                self::returnData($values);
-                //$table.= "</tr>";
-                echo "</tr>";
+                $table .= self::returnData($values);
+                $table.= "</tr>";
+                //echo "</tr>";
                 //print_r($values);
                 //table::returnData($values);
             }
             else{
                 $array = $record -> returnArray();
                 $values = array_values($array);
-                self::returnData($values);
-                //$table.= "</tr>";
-                echo "</tr>";
-
+                $table .= self::returnData($values);
+                $table.= "</tr>";
+                //echo "</tr>";
             }
             $count++;
         }
-        echo "</tbody>";
-        echo "</table>";
-        return ;
+        //echo "</tbody>";
+        //echo "</table>";
+        //print_r($table);
+        $table.="</tbody>";
+
+        return $table;
     }
-    public static function returnHeader($th, $table = null) {
-        echo "<tr>";
-        //$table .= "<tr>";
+    public static function returnHeader($th) {
+        //echo "<tr>";
+        $head = "<thead>";
+        $head .= "<tr>";
         foreach($th as $header){
-            //$table.="<th>$header</th>";
-            echo "<th>$header</th>";
+            $head.="<th>$header</th>";
+            //echo "<th>$header</th>";
         }
+        return $head;
     }
 
-    public static function returnData($td, $table=null) {
-        echo "<tr>";
-        //$table.="<tr>";
+    public static function returnData($td) {
+        //echo "<tr>";
+        $row="<tr>";
         foreach($td as $data){
-            echo "<td>$data</td>";
-            //$table.= "<td>$data</td>";
+            //echo "<td>$data</td>";
+            $row.= "<td>$data</td>";
         }
+        return $row;
     }
 
 }
@@ -183,5 +185,6 @@ class recordFactory{
     }
 }
 ?>
+<br/>
 </body>
 </html>
