@@ -34,14 +34,28 @@ class table {
         return '<table class="table table-striped">' . $table . '</table>';
     }
 
-    public static function th($head) {
-        return '<th>' . $head . '</th>';
-    }
     public static function tr($row) {
         return '<tr>' . $row . '</tr>';
     }
-    public static function td($data) {
-        return '<td>' . $data . '</td>';
+
+    public static function returnHeader($th, $table) {
+        //echo "<tr>";
+        //$head = "<thead>";
+        foreach($th as $header){
+            $table.="<th>$header</th>";
+            //echo "<th>$header</th>";
+        }
+        return $table;
+    }
+
+    public static function returnData($td, $table) {
+        //echo "<tr>";
+        //$row="<tr>";
+        foreach($td as $data){
+            //echo "<td>$data</td>";
+            $table.= "<td>$data</td>";
+        }
+        return $table;
     }
 
 }
@@ -51,20 +65,20 @@ class html{
         $count = 0;
         // start table
         //echo "<table class=\"table table-striped\">";
-        $table = "";
+        $table = "<thead>";
         //echo "<thead>";
         foreach($allRecords as $record){
             if ($count == 0){
                 $array = $record -> returnArray();
                 $fields = array_keys($array);
-                $table .= self::returnHeader($fields);
-                $table.="</tr></thead><tbody>";
+                $table = table::tr(table::returnHeader($fields, $table));
+                $table.="</thead><tbody>";
                 //echo "</tr></thead><tbody>";
 
                 //output the first data row
                 $values = array_values($array);
-                $table .= self::returnData($values);
-                $table.= "</tr>";
+                $table = table::tr(table::returnData($values, $table));
+
                 //echo "</tr>";
                 //print_r($values);
                 //table::returnData($values);
@@ -72,8 +86,7 @@ class html{
             else{
                 $array = $record -> returnArray();
                 $values = array_values($array);
-                $table .= self::returnData($values);
-                $table.= "</tr>";
+                $table = table::tr(table::returnData($values, $table));
                 //echo "</tr>";
             }
             $count++;
@@ -85,27 +98,6 @@ class html{
 
         return $table;
     }
-    public static function returnHeader($th) {
-        //echo "<tr>";
-        $head = "<thead>";
-        $head .= "<tr>";
-        foreach($th as $header){
-            $head.="<th>$header</th>";
-            //echo "<th>$header</th>";
-        }
-        return $head;
-    }
-
-    public static function returnData($td) {
-        //echo "<tr>";
-        $row="<tr>";
-        foreach($td as $data){
-            //echo "<td>$data</td>";
-            $row.= "<td>$data</td>";
-        }
-        return $row;
-    }
-
 }
 
 class csv{
