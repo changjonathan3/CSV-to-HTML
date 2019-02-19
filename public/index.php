@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Jonathan Chang</title>
 </head>
+<body>
 
 <?php
 /**
@@ -25,65 +26,84 @@ class main {
     public static function start($file){
         $allRecords = csv::getRecords($file);
         $table = html::makeTable($allRecords);
-        echo $table;
+        return $table;
+        //$print =  table::returnTable($table);
+        echo $print;
     }
 }
 
-class table{
+class table {
     public static function returnTable($table) {
-        return '<table class="table table-striped">' . self::returnTHead($table) . '</table>';
+        return '<table class="table table-striped">' . $table . '</table>';
     }
+
+    public static function th($head) {
+        return '<th>' . $head . '</th>';
+    }
+    public static function tr($row) {
+        return '<tr>' . $row . '</tr>';
+    }
+    public static function td($data) {
+        return '<td>' . $data . '</td>';
+    }
+
 }
 
 class html{
-    /**
-     * @param $allRecords
-     *          Take the array generated from the CSV file and set data to output as HTML
-     */
+
     public static function makeTable($allRecords){
         $count = 0;
         // start table
         echo "<table class=\"table table-striped\">";
+        //$table = "<thead>";
+        echo "<thead>";
         foreach($allRecords as $record){
             if ($count == 0){
                 $array = $record -> returnArray();
                 $fields = array_keys($array);
-                //output the header rows
-                //print_r($fields);
                 self::returnHeader($fields);
-
+                //$table.="</tr></thead><tbody>";
+                echo "</tr></thead><tbody>";
                 //output the first data row
                 $values = array_values($array);
-                //print_r($values);
-                echo "<tbody>";
                 self::returnData($values);
+                //$table.= "</tr>";
+                echo "</tr>";
+                //print_r($values);
+                //table::returnData($values);
             }
             else{
                 $array = $record -> returnArray();
                 $values = array_values($array);
-                //output the other data rows
-                //print_r($values);
                 self::returnData($values);
+                //$table.= "</tr>";
+                echo "</tr>";
+
             }
             $count++;
         }
         echo "</tbody>";
         echo "</table>";
+        return ;
     }
-    public static function returnHeader($th) {
-        echo "<thead><tr>";
-        foreach($th as $header){
-            echo '<th>' . $header. '</th>';
-        }
-        echo "</tr></thead>";
-    }
-    public static function returnData($td) {
+    public static function returnHeader($th, $table = null) {
         echo "<tr>";
-        foreach($td as $data){
-            echo '<td>' . $data. '</td>';
+        //$table .= "<tr>";
+        foreach($th as $header){
+            //$table.="<th>$header</th>";
+            echo "<th>$header</th>";
         }
-        echo "</tr>";
     }
+
+    public static function returnData($td, $table=null) {
+        echo "<tr>";
+        //$table.="<tr>";
+        foreach($td as $data){
+            echo "<td>$data</td>";
+            //$table.= "<td>$data</td>";
+        }
+    }
+
 }
 
 class csv{
@@ -94,6 +114,7 @@ class csv{
     public static function getRecords($file){
         $file = fopen($file,"r");
         $header = array();
+        $allRecords = array();
         $count = 0;
 
         while(! feof($file))
@@ -162,5 +183,5 @@ class recordFactory{
     }
 }
 ?>
-
+</body>
 </html>
